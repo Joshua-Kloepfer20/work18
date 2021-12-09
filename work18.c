@@ -18,7 +18,6 @@ int main() {
 		close(pipe2[WRITE]);
 		while (1) {
 			char input[200];
-			input[0] = '\0';
 			printf("input a string: ");
 			fgets(input, 200, stdin);
 			write(pipe1[WRITE], input, strlen(input));
@@ -32,7 +31,8 @@ int main() {
 		close(pipe2[READ]);
 		while (1) {
 			char input[200];
-			read(pipe1[READ], input, 200);
+			int x = read(pipe1[READ], input, 200);
+			input[x-1] = '\0';
 			int i;
 			for (i = 0; i < strlen(input); i++) {
 				input[i] = input[i] + 1;
